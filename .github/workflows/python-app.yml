@@ -12,11 +12,22 @@ jobs:
     
 
     runs-on: ubuntu-latest
-#checkout :- github ke andar code ayga nahi 
+                                        
     steps:
-      - uses: actions/checkout@v3
-# name means :- display as heading
-      - name: Set up Python 3 
-        uses: actions/setup-python@v3
-        with: # with use for python version
-            python-version: 3.12
+    - uses: actions/checkout@v3            #checkout :- github ke andar code ayga nahi 
+                                           
+    - name: Set up Python 3                 # name means :- display as heading
+      uses: actions/setup-python@v3
+      with:                                  # with use for python version
+            python-version: "3.12"
+
+    - name: Install dependencies
+      run: 
+        python -m pip install --upgrade pip
+
+        if [-f requirements.txt]; then pip install -r requirements.txt; fi
+
+    - name: check the syntax with flake8
+      run:  
+        flake8 .
+    
